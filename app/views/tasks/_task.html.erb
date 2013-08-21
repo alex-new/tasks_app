@@ -1,0 +1,32 @@
+<tr>
+	<td><%= task.name %></td>
+
+	<% case task.status %>
+	<% when 1 %>
+		
+	  <td>Выполняется</td>
+	  <td><%=l task.start_time, format: :long %></td>
+	  <td></td>
+	  <td></td>
+	  <td><%= link_to 'Завершить', task_path(task.id, :status => :complete ), :method => :put %></td>
+
+	<% when 2 %>
+
+	  <td>Завершена</td>
+	  <td><%=l task.start_time, format: :long %></td>
+	  <td><%=l task.complete_time, format: :long %></td>
+	  <td><%= distance_of_time_in_words(task.start_time,task.complete_time) %></td>
+	  <td></td>
+	<% else %>
+
+	  <td>Новая</td>
+	  <td></td>
+	  <td></td>
+	  <td></td>
+	  	<% if @exist_starting_task %>
+	  		<td><%= link_to 'Начать', task_path(task.id, :status => :start ), :method => :put %></td>
+	  	<% end %>
+
+	<% end %>
+
+</tr>
